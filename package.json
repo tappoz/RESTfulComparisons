@@ -1,0 +1,14 @@
+{
+  "name": "handlingFinancialData",
+  "version": "1.0.0",
+  "description": "playing around with financial data",
+  "main": "run.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+	 "request": "~2.53.0"
+	}
+}
