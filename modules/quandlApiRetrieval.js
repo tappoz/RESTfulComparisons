@@ -1,5 +1,6 @@
 var request = require('request');
 var config = require('./config');
+var logger = require('./logger');
 
 var quandlApiRetrieval = {
 
@@ -13,12 +14,12 @@ var quandlApiRetrieval = {
 			qs: data.queryParams
 		};
 
-		console.log('requestOptions', requestOptions);
+		logger.debug('requestOptions: %j', requestOptions, {});
 
 		request(requestOptions, function (quandlError, quandlResponse, quandlBody) {
 
 			if(quandlError) {
-				console.log('quandlError:', quandlError);
+				logger.error('quandlError: %j', quandlError, {});
 				callback(quandlError);
 			} else {
 				callback(undefined, quandlBody);

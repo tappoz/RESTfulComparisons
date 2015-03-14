@@ -1,6 +1,6 @@
 var express = require('express');
 var quandlApiRetrieval = require('../modules/quandlApiRetrieval');
-
+var logger = require('../modules/logger');
 
 var router = express.Router();
 
@@ -17,20 +17,18 @@ router.get('/:tickerCode', function(req, res) {
 
   quandlApiRetrieval.getData(dataDetails, function(errorData, retrievedData) {
 
-    // console.log('errorData', errorData);
-    // console.log('retrievedData', retrievedData);
+    logger.debug('dataDetails: %j', dataDetails, {});
 
-    console.log('------------------------------------------------');
     var retrievedDataObj = JSON.parse(retrievedData);
-    console.log('retrievedDataObj.data', retrievedDataObj.data);
-
+    
     var relevantData = {};
     relevantData.ticker = retrievedDataObj.code;
     relevantData.frequency = retrievedDataObj.frequency;
     relevantData.closingPrice = retrievedDataObj.data;
 
-    console.log('relevantData:', relevantData);
+    logger.debug('relevantData: %j', relevantData, {});
 
+    logger.info('about to return data for ticker code: %s', retrievedDataObj.code);
     res.send(relevantData);
   });
 });
