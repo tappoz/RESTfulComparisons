@@ -19,16 +19,19 @@ router.get('/:tickerCode', function(req, res) {
 
     logger.debug('dataDetails: %j', dataDetails, {});
 
-    var retrievedDataObj = JSON.parse(retrievedData);
-    
     var relevantData = {};
-    relevantData.ticker = retrievedDataObj.code;
-    relevantData.frequency = retrievedDataObj.frequency;
-    relevantData.closingPrice = retrievedDataObj.data;
+    relevantData.ticker = retrievedData.code;
+    relevantData.frequency = retrievedData.frequency;
+    relevantData.closingPrice = retrievedData.data;
+    if(retrievedData.warning) {
+
+      logger.warn('The data is coming from a static loading of a file');
+      relevantData.warning = retrievedData.warning;
+    }
 
     logger.debug('relevantData: %j', relevantData, {});
 
-    logger.info('about to return data for ticker code: %s', retrievedDataObj.code);
+    logger.info('About to return data for ticker code: %s', retrievedData.code);
     res.send(relevantData);
   });
 });
