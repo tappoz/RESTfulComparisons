@@ -40,7 +40,7 @@ module.exports = function(grunt) {
             dot: true,
             cwd: '<%=srcDir%>',
             dest: '<%=buildDir%>',
-            src: ['**/*.js']
+            src: ['**/*.js', 'node_modules/**/*']
           },
           {
             expand: true,
