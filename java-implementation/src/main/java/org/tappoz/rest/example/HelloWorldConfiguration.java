@@ -1,4 +1,4 @@
-package org.tappoz.rest;
+package org.tappoz.rest.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;

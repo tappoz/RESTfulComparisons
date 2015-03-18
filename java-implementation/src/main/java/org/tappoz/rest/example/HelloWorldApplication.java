@@ -1,10 +1,10 @@
-package org.tappoz.rest;
+package org.tappoz.rest.example;
 
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.tappoz.rest.health.TemplateHealthCheck;
-import org.tappoz.rest.resources.HelloWorldResource;
+import org.tappoz.rest.example.health.TemplateHealthCheck;
+import org.tappoz.rest.example.resources.HelloWorldResource;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 

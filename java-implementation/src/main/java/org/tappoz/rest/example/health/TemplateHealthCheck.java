@@ -1,4 +1,4 @@
-package org.tappoz.rest.health;
+package org.tappoz.rest.example.health;
 
 
 import com.codahale.metrics.health.HealthCheck;

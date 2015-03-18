@@ -1,4 +1,4 @@
-package org.tappoz.rest.core;
+package org.tappoz.rest.example.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;

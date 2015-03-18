@@ -1,4 +1,4 @@
-package org.tappoz.rest.resources;
+package org.tappoz.rest.example.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.tappoz.rest.core.Saying;
+import org.tappoz.rest.example.core.Saying;
 
 @Path("/hello-world")
 @Produces(MediaType.APPLICATION_JSON)
