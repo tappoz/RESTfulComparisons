@@ -1,5 +1,6 @@
 package org.tappoz.rest.example;
 
+import dagger.ObjectGraph;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -7,6 +8,8 @@ import org.tappoz.rest.example.health.TemplateHealthCheck;
 import org.tappoz.rest.example.resources.HelloWorldResource;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
+
+    ObjectGraph objectGraph;
 
     public static void main(String[] args) throws Exception {
         new HelloWorldApplication().run(args);
@@ -25,12 +28,11 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     @Override
     public void run(HelloWorldConfiguration configuration,
                     Environment environment) {
-        final HelloWorldResource resource = new HelloWorldResource(
-                configuration.getTemplate(),
-                configuration.getDefaultName()
-        );
-        final TemplateHealthCheck healthCheck =
-                new TemplateHealthCheck(configuration.getTemplate());
+        objectGraph = ObjectGraph.create(new HelloWorldModule(configuration, environment));
+
+        final HelloWorldResource resource = objectGraph.get(HelloWorldResource.class);
+
+        final TemplateHealthCheck healthCheck = objectGraph.get(TemplateHealthCheck.class);
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
     }

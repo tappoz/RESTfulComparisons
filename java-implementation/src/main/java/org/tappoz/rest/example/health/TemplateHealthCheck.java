@@ -1,12 +1,14 @@
 package org.tappoz.rest.example.health;
 
-
 import com.codahale.metrics.health.HealthCheck;
+
+import javax.inject.Inject;
 
 public class TemplateHealthCheck extends HealthCheck {
 
     private final String template;
 
+    @Inject
     public TemplateHealthCheck(String template) {
         this.template = template;
     }

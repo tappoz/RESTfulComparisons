@@ -3,6 +3,7 @@ package org.tappoz.rest.example.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,6 +20,7 @@ public class HelloWorldResource {
     private final String defaultName;
     private final AtomicLong counter;
 
+    @Inject
     public HelloWorldResource(String template, String defaultName) {
         this.template = template;
         this.defaultName = defaultName;
