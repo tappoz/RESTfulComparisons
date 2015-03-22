@@ -8,9 +8,9 @@ import org.tappoz.rest.remote.data.QuandlTicker;
 import org.tappoz.rest.remote.service.JsonAdapter;
 import org.tappoz.rest.remote.service.QuandlAdapter;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 
 @Path("/ticker")
 @Produces(MediaType.APPLICATION_JSON)
@@ -21,22 +21,9 @@ public class ApiResource {
     JsonAdapter jsonAdapter;
     QuandlAdapter quandlAdapter;
 
-    public ApiResource() throws Exception {
-
-        try {
-            jsonAdapter = new JsonAdapter();
-        } catch (IOException e) {
-            log.error("An {} occurred: {}", e.getClass().getCanonicalName(), e);
-            throw new Exception("A service can not be initialised! The message is: " + e.getMessage());
-        }
-        quandlAdapter = new QuandlAdapter();
-    }
-
-    public void setJsonAdapter(JsonAdapter jsonAdapter) {
+    @Inject
+    public ApiResource(JsonAdapter jsonAdapter, QuandlAdapter quandlAdapter) {
         this.jsonAdapter = jsonAdapter;
-    }
-
-    public void setQuandlAdapter(QuandlAdapter quandlAdapter) {
         this.quandlAdapter = quandlAdapter;
     }
 

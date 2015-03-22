@@ -1,12 +1,11 @@
 package org.tappoz.rest.remote.service;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tappoz.rest.remote.data.QuandlTicker;
 
-import java.io.File;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -15,16 +14,19 @@ public class JsonAdapter {
     private final static Logger log = LoggerFactory.getLogger(JsonAdapter.class);
 
     ObjectMapper objectMapper;
-    final QuandlTicker sampleQuandlTicker;
+    QuandlTicker sampleQuandlTicker;
 
-    public JsonAdapter() throws IOException {
-        this.objectMapper =  new ObjectMapper();
+    @Inject
+    public JsonAdapter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
 
-        //File file = new File(getClass().getClassLoader().getResource("sampleQuandlTicker.json").getFile());
         InputStream is = getClass().getClassLoader().getResourceAsStream("sampleQuandlTicker.json");
-        //sampleQuandlTicker = objectMapper.readValue(file, QuandlTicker.class);
-        sampleQuandlTicker = objectMapper.readValue(is, QuandlTicker.class);
-        log.info("Just parsed the Sample Quandl Ticker: {}", sampleQuandlTicker.toString());
+        try {
+            sampleQuandlTicker = objectMapper.readValue(is, QuandlTicker.class);
+            log.info("Just parsed the Sample Quandl Ticker: {}", sampleQuandlTicker.toString());
+        } catch (IOException e) {
+            log.error("It was not possible to fetch the file containing the JSON object, the {} said: {}", e.getClass().getCanonicalName(), e.getMessage());
+        }
     }
 
     public QuandlTicker getSampleQuandlTicker() {
