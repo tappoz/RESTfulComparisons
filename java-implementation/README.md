@@ -10,12 +10,14 @@ $ gradle clean jar
 
 ```
 $ java -jar build/libs/java-implementation-1.0.jar server src/main/resources/hello-world.yml
+$ java -jar build/libs/java-implementation-1.0.jar server src/main/resources/apiConfigurations.yml
 ```
 
 # Endpoints
 
  - `http://localhost:8080/hello-world`
  - `http://localhost:8080/hello-world?name=Tappoz`
+ - `http://localhost:8080/ticker?tickerCode=AAPL`
  
 ## Metrics
 
