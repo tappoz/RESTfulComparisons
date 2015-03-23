@@ -18,6 +18,7 @@ $ java -jar build/libs/java-implementation-1.0.jar server src/main/resources/api
  - `http://localhost:8080/hello-world`
  - `http://localhost:8080/hello-world?name=Tappoz`
  - `http://localhost:8080/ticker?tickerCode=AAPL`
+ - `http://localhost:8080/ticker/AAPL`
  
 ## Metrics
 

@@ -26,7 +26,7 @@ public class ApiResourceTest {
     ApiResource systemUnderTest;
 
     @Test
-    public void getTickerTest() {
+    public void getTickerFromPathParameterTest() {
 
         QuandlTicker mockedQuandlTicker = mock(QuandlTicker.class);
         QuandlPresentationObject mockedQuandlPresentationObject = mock(QuandlPresentationObject.class);
@@ -34,7 +34,7 @@ public class ApiResourceTest {
         when(jsonAdapter.getSampleQuandlTicker()).thenReturn(mockedQuandlTicker);
         when(quandlAdapter.toPresentationObject(mockedQuandlTicker)).thenReturn(mockedQuandlPresentationObject);
 
-        QuandlPresentationObject output = systemUnderTest.getTicker("WHATEVER");
+        QuandlPresentationObject output = systemUnderTest.getTickerFromPathParameter("WHATEVER");
 
         assertThat(output, is(mockedQuandlPresentationObject));
     }

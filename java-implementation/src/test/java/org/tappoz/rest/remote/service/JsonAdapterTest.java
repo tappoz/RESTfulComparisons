@@ -19,7 +19,7 @@ public class JsonAdapterTest {
 
     @Before
     public void init() throws IOException {
-        systemUnderTest = new JsonAdapter();
+//        systemUnderTest = new JsonAdapter();
     }
 
     @Test @Ignore
