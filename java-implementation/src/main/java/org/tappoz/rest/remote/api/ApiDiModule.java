@@ -5,6 +5,7 @@ import dagger.Module;
 import dagger.Provides;
 import org.tappoz.rest.remote.service.JsonAdapter;
 import org.tappoz.rest.remote.service.QuandlAdapter;
+import org.tappoz.rest.remote.service.QuandlHttpClient;
 
 import javax.inject.Singleton;
 
@@ -25,9 +26,13 @@ public class ApiDiModule {
         return new ObjectMapper();
     }
 
+    @Provides @Singleton QuandlHttpClient providesQuandlHttpClient() {
+        return new QuandlHttpClient();
+    }
+
     @Provides @Singleton ApiResource providesApiResource() {
         
-        return new ApiResource(this.providesJsonAdapter(), this.providesQuandlAdapter());
+        return new ApiResource(this.providesJsonAdapter(), this.providesQuandlAdapter(), this.providesQuandlHttpClient());
     }
 
     @Provides @Singleton JsonAdapter providesJsonAdapter() {

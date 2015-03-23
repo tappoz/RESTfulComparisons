@@ -15,7 +15,7 @@ public class QuandlHttpClientIntegrationTest {
 
     QuandlHttpClient systemUnderTest = new QuandlHttpClient();
 
-    @Test @Ignore
+    @Test // @Ignore
     public void getRemoteTickerTest() {
 
         String outputJson = systemUnderTest.getRemoteTicker("AAPL");

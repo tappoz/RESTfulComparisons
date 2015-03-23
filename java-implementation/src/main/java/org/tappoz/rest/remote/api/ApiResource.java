@@ -7,10 +7,12 @@ import org.tappoz.rest.remote.data.QuandlPresentationObject;
 import org.tappoz.rest.remote.data.QuandlTicker;
 import org.tappoz.rest.remote.service.JsonAdapter;
 import org.tappoz.rest.remote.service.QuandlAdapter;
+import org.tappoz.rest.remote.service.QuandlHttpClient;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 @Path("/ticker")
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,19 +22,20 @@ public class ApiResource {
 
     JsonAdapter jsonAdapter;
     QuandlAdapter quandlAdapter;
+    QuandlHttpClient quandlHttpClient;
 
     @Inject
-    public ApiResource(JsonAdapter jsonAdapter, QuandlAdapter quandlAdapter) {
+    public ApiResource(JsonAdapter jsonAdapter, QuandlAdapter quandlAdapter, QuandlHttpClient quandlHttpClient) {
         this.jsonAdapter = jsonAdapter;
         this.quandlAdapter = quandlAdapter;
+        this.quandlHttpClient = quandlHttpClient;
     }
 
     @GET
     @Path("{code}")
-    public QuandlPresentationObject getTickerFromPathParameter(@PathParam("code") String code) {
+    public QuandlPresentationObject getTickerFromPathParameter(@PathParam("code") String code) throws IOException {
 
-        // TODO implement the remote retrieval... for now fetch the sample JSON object
-        QuandlTicker quandlTicker = jsonAdapter.getSampleQuandlTicker();
+        QuandlTicker quandlTicker = this.getRemoteTicker(code);
         QuandlPresentationObject quandlPresentationObject = quandlAdapter.toPresentationObject(quandlTicker);
 
         log.info("For this given input ticker '{}', about to return: {}", code, quandlPresentationObject.toString());
@@ -41,13 +44,28 @@ public class ApiResource {
 
     @GET
     @Timed
-    public QuandlPresentationObject getTickerFromQueryParameter(@QueryParam("tickerCode") String tickerCode) {
+    public QuandlPresentationObject getTickerFromQueryParameter(@QueryParam("tickerCode") String tickerCode) throws IOException {
 
-        // TODO implement the remote retrieval... for now fetch the sample JSON object
-        QuandlTicker quandlTicker = jsonAdapter.getSampleQuandlTicker();
+        QuandlTicker quandlTicker = this.getRemoteTicker(tickerCode);
         QuandlPresentationObject quandlPresentationObject = quandlAdapter.toPresentationObject(quandlTicker);
 
         log.info("For this given input ticker '{}', about to return: {}", tickerCode, quandlPresentationObject.toString());
         return quandlPresentationObject;
+    }
+
+    public QuandlTicker getRemoteTicker(String tickerCode) throws IOException {
+
+        String remoteJson;
+        try {
+            remoteJson = quandlHttpClient.getRemoteTicker(tickerCode);
+        } catch (Exception e) {
+            log.error("An exception {} occurred while attempting to fetch the remote JSON, the exception message was: {}", e.getClass().getCanonicalName(), e.getMessage());
+            log.warn("About to return the SAMPLE JSON OBJECT!");
+            return jsonAdapter.getSampleQuandlTicker();
+        }
+
+        QuandlTicker quandlTicker = jsonAdapter.parseQuandlTicker(remoteJson);
+        log.debug("About to return the just parsed JSON object {}", quandlTicker.toString());
+        return quandlTicker;
     }
 }
