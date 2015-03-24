@@ -18,6 +18,7 @@ public class JsonAdapter {
 
     @Inject
     public JsonAdapter(ObjectMapper objectMapper) {
+
         this.objectMapper = objectMapper;
 
         InputStream is = getClass().getClassLoader().getResourceAsStream("sampleQuandlTicker.json");

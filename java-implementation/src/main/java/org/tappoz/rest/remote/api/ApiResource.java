@@ -35,7 +35,7 @@ public class ApiResource {
     @Path("{code}")
     public QuandlPresentationObject getTickerFromPathParameter(@PathParam("code") String code) throws IOException {
 
-        QuandlTicker quandlTicker = this.getRemoteTicker(code);
+        QuandlTicker quandlTicker = this.getTicker(code);
         QuandlPresentationObject quandlPresentationObject = quandlAdapter.toPresentationObject(quandlTicker);
 
         log.info("For this given input ticker '{}', about to return: {}", code, quandlPresentationObject.toString());
@@ -46,14 +46,14 @@ public class ApiResource {
     @Timed
     public QuandlPresentationObject getTickerFromQueryParameter(@QueryParam("tickerCode") String tickerCode) throws IOException {
 
-        QuandlTicker quandlTicker = this.getRemoteTicker(tickerCode);
+        QuandlTicker quandlTicker = this.getTicker(tickerCode);
         QuandlPresentationObject quandlPresentationObject = quandlAdapter.toPresentationObject(quandlTicker);
 
         log.info("For this given input ticker '{}', about to return: {}", tickerCode, quandlPresentationObject.toString());
         return quandlPresentationObject;
     }
 
-    public QuandlTicker getRemoteTicker(String tickerCode) throws IOException {
+    protected QuandlTicker getTicker(String tickerCode) throws IOException {
 
         String remoteJson;
         try {
