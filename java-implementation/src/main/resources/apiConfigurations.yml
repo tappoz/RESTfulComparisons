@@ -1,0 +1,7 @@
+appName: apiRemote
+
+logging:
+  level: INFO
+
+  loggers:
+    "org.tappoz.rest": DEBUG

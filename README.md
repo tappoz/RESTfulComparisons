@@ -1,41 +1,14 @@
-Financial data
-==============
+# Financial Data
 
-The data is retrieved via the API provided by Quandl. It is then internally filtered by the Javascript code. The filtered data is then provided as an internal API via an Express application server.
+This project aims at showing differences in implementing the same bit of functionality with different programming languages or frameworks.
 
-Running the code
-----------------
-To run the code you can use multiple tools like `npm` or the `grunt` task runner.
+The applications developed in this project are providing some RESTful endpoints (HTTP GET, POST, etc.) where some path/query parameters 
+can be specified, then the idea is to retrieve a JSON object from a remote API according to those parameteres, then adapting that remote JSON to some specific needs (get/set etc.), 
+then showing the outcome as a reply to the original request to the RESTful endpoints.
 
-First of all you need to install all the local dependencies (according to the file `package.json`), to do that use the following command:
+## Implementations
 
-```
-$ npm install
-```
+* [Node.js RESTful implementation](./node-implementation/README.md)
+* [Java RESTful implementation](./java-implementation/README.md)
 
-### Using npm
 
-```
-$ npm start
-```
-Bare in mind that Node.js is assuming there's a logging file at this path: `./logs/all-logs.log`.
-
-### Using grunt
-
-The _grunt task runner_ needs first of all to be installed as a _global_ dependency.
-```
-$ npm install -g grunt-cli
-```
-
-All the tasks that grunt can perform are described in the `Gruntfile.js`, e.g. the log file `./logs/all-logs.log` gets created automatically.
-
-To run the application you need to execute the `server` task:
-```
-$ grunt server
-```
-Using the application
----------------------
-
-To fetch the relevant data regarding a ticker perform an HTTP GET on `http://localhost:3000/tickers/:tickerCode` where e.g. `tickerCode` for Apple is `AAPL`.
-
-You may want to use a _web browser plugin_ e.g. __postman__ for __Chrome__.
