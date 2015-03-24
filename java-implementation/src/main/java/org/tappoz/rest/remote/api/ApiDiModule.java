@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dagger.Module;
 import dagger.Provides;
 import org.tappoz.rest.remote.service.JsonAdapter;
+import org.tappoz.rest.remote.service.JsonValidator;
 import org.tappoz.rest.remote.service.QuandlAdapter;
 import org.tappoz.rest.remote.service.QuandlHttpClient;
 
@@ -12,7 +13,7 @@ import javax.inject.Singleton;
 @Module
     (
         library=true,
-        injects = {ApiResource.class, JsonAdapter.class, QuandlAdapter.class}
+        injects = {ApiResource.class, JsonAdapter.class, QuandlAdapter.class, QuandlHttpClient.class, JsonValidator.class}
     )
 public class ApiDiModule {
 
@@ -33,6 +34,10 @@ public class ApiDiModule {
     @Provides @Singleton ApiResource providesApiResource() {
         
         return new ApiResource(this.providesJsonAdapter(), this.providesQuandlAdapter(), this.providesQuandlHttpClient());
+    }
+
+    @Provides @Singleton JsonValidator providesJsonValidator() {
+        return new JsonValidator(this.providesObjectMapper());
     }
 
     @Provides @Singleton JsonAdapter providesJsonAdapter() {

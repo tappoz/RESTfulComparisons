@@ -41,4 +41,5 @@ public class JsonAdapter {
         log.debug("About to return the a Quandl Ticker object:", parsedObject.toString());
         return parsedObject;
     }
+
 }

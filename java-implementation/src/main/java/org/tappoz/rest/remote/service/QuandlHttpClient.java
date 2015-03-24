@@ -16,7 +16,7 @@ public class QuandlHttpClient {
 
     private final static Logger log = LoggerFactory.getLogger(QuandlHttpClient.class);
 
-    Client httpClient = ClientBuilder.newClient().property(ClientProperties.CONNECT_TIMEOUT, 1); // usually Quandl response time is around 4500 ms for the following query
+    Client httpClient = ClientBuilder.newClient().property(ClientProperties.CONNECT_TIMEOUT, 6000); // usually Quandl response time is around 4500 ms for the following query
     String qualdlBaseUrl = "https://www.quandl.com/api/v1/datasets/WIKI/";
 
     public String getRemoteTicker(String tickerCode) throws ProcessingException {
