@@ -28,7 +28,7 @@ public class ApiResourceTest {
     @InjectMocks
     ApiResource systemUnderTest;
 
-    @Test @Ignore
+    @Test //@Ignore
     public void getTickerFromPathParameterTest() throws IOException {
 
         QuandlTicker mockedQuandlTicker = mock(QuandlTicker.class);
