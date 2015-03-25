@@ -24,7 +24,7 @@ public class JsonAdapter {
         InputStream is = getClass().getClassLoader().getResourceAsStream("sampleQuandlTicker.json");
         try {
             sampleQuandlTicker = objectMapper.readValue(is, QuandlTicker.class);
-            log.info("Just parsed the Sample Quandl Ticker: {}", sampleQuandlTicker.toString());
+            log.debug("Just parsed the Sample Quandl Ticker: {}", sampleQuandlTicker.toString());
         } catch (IOException e) {
             log.error("It was not possible to fetch the file containing the JSON object, the {} said: {}", e.getClass().getCanonicalName(), e.getMessage());
         }

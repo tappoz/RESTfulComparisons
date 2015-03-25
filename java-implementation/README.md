@@ -19,21 +19,31 @@ $ gradle clean jar
 ```
 
 
+# Tests
+
+```
+$ gradle clean test
+```
+To be sure all the test (both __unit tests__ and __integration tests__) won't fail they need to be run from the command line using `gradle`.
+Some of the tests will fail if executed inside an IDE (e.g. IntelliJ IDEA), the reason is that there is some code missing
+because of the Dagger dependency injection framework that needs to generate the source code according to the annotations found in the code.
+
+
 # Running the project
 
 ```
-$ java -jar build/libs/java-implementation-1.0.jar server src/main/resources/hello-world.yml
 $ java -jar build/libs/java-implementation-1.0.jar server src/main/resources/apiConfigurations.yml
 ```
+The YAML configuration file is currently inside the `resources` folder as per Maven requirements, but that's not mandatory.
+In fact it is currently used only at runtime with the `java -jar` command.
 
 
 # Endpoints
 
- - `http://localhost:8080/hello-world`
- - `http://localhost:8080/hello-world?name=Tappoz`
  - `http://localhost:8080/ticker?tickerCode=AAPL`
  - `http://localhost:8080/ticker/AAPL`
- 
+
+
 ## Metrics
 
 `http://localhost:8081/`

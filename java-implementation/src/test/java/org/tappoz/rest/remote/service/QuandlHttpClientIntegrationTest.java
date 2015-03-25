@@ -1,6 +1,7 @@
 package org.tappoz.rest.remote.service;
 
 import dagger.ObjectGraph;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -17,10 +18,23 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JUnit4.class)
 public class QuandlHttpClientIntegrationTest {
 
-    ObjectGraph objectGraph = ObjectGraph.create(new ApiDiModule(new ApiConfiguration()));
+    ObjectGraph objectGraph;
 
-    QuandlHttpClient systemUnderTest = objectGraph.get(QuandlHttpClient.class);
-    JsonValidator jsonValidator = objectGraph.get(JsonValidator.class);
+    QuandlHttpClient systemUnderTest;
+    JsonValidator jsonValidator;
+
+    @Before
+    public void init() {
+
+        ApiConfiguration apiConfiguration = new ApiConfiguration();
+        apiConfiguration.setQuandlApiEndPoint("https://www.quandl.com/api/v1/datasets/WIKI/");
+
+        objectGraph = ObjectGraph.create(new ApiDiModule(apiConfiguration));
+
+        systemUnderTest = objectGraph.get(QuandlHttpClient.class);
+        jsonValidator = objectGraph.get(JsonValidator.class);
+
+    }
 
     @Test
     public void getRemoteTickerTest() {

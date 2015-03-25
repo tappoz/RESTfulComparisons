@@ -2,9 +2,11 @@ package org.tappoz.rest.remote.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.tappoz.rest.remote.service.QuandlDataFieldDeserializer;
 
 import java.util.List;
 
@@ -37,8 +39,8 @@ public class QuandlTicker {
     private boolean privateFlag;
     private String type;
     private boolean premium;
-    @JsonIgnore
-    private Object data; // TODO deserialising an array of arrays
+    @JsonDeserialize(using = QuandlDataFieldDeserializer.class)
+    private List<QuandlDailyStockData> data;
 
     public Object getErrors() {
         return errors;
@@ -176,11 +178,11 @@ public class QuandlTicker {
         this.premium = premium;
     }
 
-    public Object getData() {
+    public List<QuandlDailyStockData> getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(List<QuandlDailyStockData> data) {
         this.data = data;
     }
 
