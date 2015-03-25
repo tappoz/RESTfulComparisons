@@ -14,6 +14,7 @@ public class QuandlAdapter {
         QuandlPresentationObject output = new QuandlPresentationObject();
         output.setTicker(quandlTicker.getCode());
         output.setFrequency(quandlTicker.getFrequency());
+        output.setDailyStockData(quandlTicker.getData());
 
         log.debug("About to return an adapted Quandl Presentation Object:", output.toString());
         return output;

@@ -39,9 +39,8 @@ public class QuandlTicker {
     private boolean privateFlag;
     private String type;
     private boolean premium;
-//    @JsonIgnore
     @JsonDeserialize(using = QuandlDataFieldDeserializer.class)
-    private List<QuandlDailyStockData> data; // TODO deserialising an array of arrays
+    private List<QuandlDailyStockData> data;
 
     public Object getErrors() {
         return errors;

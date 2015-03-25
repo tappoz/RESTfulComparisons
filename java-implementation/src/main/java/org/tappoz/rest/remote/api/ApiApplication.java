@@ -1,6 +1,5 @@
 package org.tappoz.rest.remote.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dagger.ObjectGraph;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
