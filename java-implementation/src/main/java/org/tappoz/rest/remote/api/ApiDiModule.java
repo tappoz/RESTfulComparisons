@@ -28,7 +28,7 @@ public class ApiDiModule {
     }
 
     @Provides @Singleton QuandlHttpClient providesQuandlHttpClient() {
-        return new QuandlHttpClient();
+        return new QuandlHttpClient(this.providesApiConfiguration());
     }
 
     @Provides @Singleton ApiResource providesApiResource() {
@@ -46,5 +46,9 @@ public class ApiDiModule {
 
     @Provides @Singleton QuandlAdapter providesQuandlAdapter() {
         return new QuandlAdapter();
+    }
+
+    @Provides @Singleton ApiConfiguration providesApiConfiguration() {
+        return this.apiConfiguration;
     }
 }

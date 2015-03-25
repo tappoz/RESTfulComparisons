@@ -18,6 +18,15 @@ $ gradle idea
 $ gradle clean jar
 ```
 
+# Tests
+
+```
+$ gradle clean test
+```
+To be sure all the test (both __unit tests__ and __integration tests__) won't fail they need to be run from the command line using `gradle`.
+Some of the tests will fail if executed inside an IDE (e.g. IntelliJ IDEA), the reason is that there is some code missing
+because of the Dagger dependency injection framework that needs to generate the source code according to the annotations found in the code.
+
 
 # Running the project
 

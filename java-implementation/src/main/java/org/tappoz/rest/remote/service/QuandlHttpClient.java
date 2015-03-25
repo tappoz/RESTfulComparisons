@@ -1,5 +1,6 @@
 package org.tappoz.rest.remote.service;
 
+import javax.inject.Inject;
 import org.glassfish.jersey.client.ClientProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +12,24 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import org.tappoz.rest.remote.api.ApiConfiguration;
 
 public class QuandlHttpClient {
 
     private final static Logger log = LoggerFactory.getLogger(QuandlHttpClient.class);
 
-    Client httpClient = ClientBuilder.newClient().property(ClientProperties.CONNECT_TIMEOUT, 6000); // usually Quandl response time is around 4500 ms for the following query
-    String qualdlBaseUrl = "https://www.quandl.com/api/v1/datasets/WIKI/";
+    private ApiConfiguration apiConfiguration;
+
+    private Client httpClient = ClientBuilder.newClient().property(ClientProperties.CONNECT_TIMEOUT, 6000); // usually Quandl response time is around 4500 ms for the following query
+    private String qualdlBaseUrl;
+
+    @Inject
+    public QuandlHttpClient(ApiConfiguration apiConfiguration) {
+        this.apiConfiguration = apiConfiguration;
+
+        this.qualdlBaseUrl = apiConfiguration.getQuandlApiEndPoint();
+        log.info("The Quandl remote API URL endpoint has been set to: '{}'", qualdlBaseUrl);
+    }
 
     public String getRemoteTicker(String tickerCode) throws ProcessingException {
 
@@ -26,7 +38,7 @@ public class QuandlHttpClient {
 
         URI quandlTickerUri = UriBuilder
                 .fromPath(qualdlBaseUrl)
-                .path(tickerCode + ".json")
+                .path(tickerCode + ".json") // e.g. "AAPL.json"
                 .queryParam("trim_start", "2015-01-01")
                 .queryParam("trim_end", "2015-03-14")
                 .queryParam("column", "4") // closing price cfr. Quandl API documentation

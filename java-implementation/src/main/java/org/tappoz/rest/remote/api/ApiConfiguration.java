@@ -8,6 +8,10 @@ public class ApiConfiguration extends Configuration {
 
     @NotEmpty
     @JsonProperty
+    private String quandlApiEndPoint;
+
+    @NotEmpty
+    @JsonProperty
     private String appName;
 
     public String getAppName() {
@@ -16,5 +20,13 @@ public class ApiConfiguration extends Configuration {
 
     public void setAppName(String appName) {
         this.appName = appName;
+    }
+
+    public String getQuandlApiEndPoint() {
+        return quandlApiEndPoint;
+    }
+
+    public void setQuandlApiEndPoint(String quandlApiEndPoint) {
+        this.quandlApiEndPoint = quandlApiEndPoint;
     }
 }
