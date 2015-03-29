@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -35,17 +36,25 @@ func getTickerCode(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	quandlTicker := QuandlTicker{Code: tickerCode}
+	// quandlTicker := QuandlTicker{Code: tickerCode}
+	// if err := json.NewEncoder(w).Encode(quandlTicker); err != nil {
+	// 	panic(err)
+	// }
 
+	contentSample, err := ioutil.ReadFile("sampleQuandlTicker.json")
+	if err != nil {
+		log.Println(err)
+	}
+
+	var quandlTicker QuandlTicker
+	err = json.Unmarshal(contentSample, &quandlTicker)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// ToPresentationStruct(...)
 	if err := json.NewEncoder(w).Encode(quandlTicker); err != nil {
 		panic(err)
 	}
 
 }
-
-type QuandlTicker struct {
-	Code string `json:"code"`
-	// ClosingPrice Float64 ``
-}
-
-type QuandlTickers []QuandlTicker
