@@ -52,8 +52,12 @@ func getTickerCode(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	// ToPresentationStruct(...)
-	if err := json.NewEncoder(w).Encode(quandlTicker); err != nil {
+	quandlPresObj := QuandlPresentation{}
+	quandlPresObj = quandlTicker.ToPresentationStruct()
+	log.Println("quandlPresObj:", quandlPresObj)
+
+	if err := json.NewEncoder(w).Encode(quandlTicker.ToPresentationStruct()); err != nil {
+		// if err := json.NewEncoder(w).Encode(quandlTicker); err != nil {
 		panic(err)
 	}
 

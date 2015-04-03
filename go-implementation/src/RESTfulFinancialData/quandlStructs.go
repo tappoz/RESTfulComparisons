@@ -1,8 +1,8 @@
 package main
 
-// import (
-// 	"log"
-// )
+import (
+	"log"
+)
 
 type QuandlTicker struct {
 	// TODO error field
@@ -36,11 +36,11 @@ type QuandlDailyStockData struct {
 	ClosingPrice float32 `json:"closingPrice"`
 }
 
-// func ToPresentationStruct(qTicker *QuandlTicker) QuandlPresentation {
+func (qTicker *QuandlTicker) ToPresentationStruct() QuandlPresentation {
 
-//     qPresentation := QuandlPresentation{}
-//     qPresentation.TickerCode := qTicker.Code
+	qPresentation := QuandlPresentation{}
+	qPresentation.TickerCode = qTicker.Code
 
-//     log.Println("About to return the adapted:", qPresentation)
-//     return qPresentation
-// }
+	log.Println("About to return the adapted:", qPresentation)
+	return qPresentation
+}
