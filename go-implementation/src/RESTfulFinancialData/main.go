@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
-	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -13,51 +12,38 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/ticker", getTickerCode).Methods("GET")
-	router.HandleFunc("/ticker/{tickerCode}", getTickerCode).Methods("GET")
+	router.HandleFunc("/ticker", GetTickerCode).Methods("GET")
+	router.HandleFunc("/ticker/{tickerCode}", GetTickerCode).Methods("GET")
 
 	n := negroni.Classic()
 	n.UseHandler(router)
 	n.Run(":8080")
 }
 
-func getTickerCode(w http.ResponseWriter, r *http.Request) {
+func GetTickerCode(w http.ResponseWriter, r *http.Request) {
 
-	vars := mux.Vars(r)
+	pathParams := mux.Vars(r)
+	log.Println("Vars:", pathParams)
 
-	tickerCode := vars["tickerCode"]
+	tickerCode := pathParams["tickerCode"]
 	if tickerCode == "" {
-		log.Println("The path parameter was not found!")
+		log.Println("The HTTP path parameter was not found!")
 		tickerCode = r.URL.Query().Get("tickerCode")
-		log.Println("The query parameter tickerCode is:", tickerCode)
+		log.Println("The HTTP query parameter tickerCode is:", tickerCode)
 	}
 	log.Println("Requested ticker:", tickerCode)
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	// quandlTicker := QuandlTicker{Code: tickerCode}
-	// if err := json.NewEncoder(w).Encode(quandlTicker); err != nil {
-	// 	panic(err)
-	// }
-
-	contentSample, err := ioutil.ReadFile("sampleQuandlTicker.json")
-	if err != nil {
-		log.Println(err)
-	}
-
-	var quandlTicker QuandlTicker
-	err = json.Unmarshal(contentSample, &quandlTicker)
-	if err != nil {
-		log.Println(err)
-	}
+	quandlTicker := GetJsonSampleFromFile()
+	log.Println("The JSON sample found is for the ticker:", quandlTicker.Code)
 
 	quandlPresObj := QuandlPresentation{}
 	quandlPresObj = quandlTicker.ToPresentationStruct()
 	log.Println("quandlPresObj:", quandlPresObj)
 
-	if err := json.NewEncoder(w).Encode(quandlTicker.ToPresentationStruct()); err != nil {
-		// if err := json.NewEncoder(w).Encode(quandlTicker); err != nil {
+	if err := json.NewEncoder(w).Encode(quandlPresObj); err != nil {
 		panic(err)
 	}
 
