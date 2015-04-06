@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 type QuandlTicker struct {
@@ -103,15 +104,21 @@ func Map(qData *[][]interface{}) []QuandlDailyStockData {
 
 func GetRemoteJson() QuandlTicker {
 
-	resp, err := http.Get("https://www.quandl.com/api/v1/datasets/WIKI/AAPL.json?trim_start=2015-01-01&trim_end=2015-03-14&column=4")
+	timeout := time.Duration(2 * time.Second)
+	client := http.Client{
+		Timeout: timeout,
+	}
+
+	var quandlTicker QuandlTicker
+	resp, err := client.Get("https://www.quandl.com/api/v1/datasets/WIKI/AAPL.json?trim_start=2015-01-01&trim_end=2015-03-14&column=4")
 	if err != nil {
-		panic(err)
+		log.Println("Issues in retrieving the remote JSON object")
+		return quandlTicker
 	}
 	defer resp.Body.Close()
 	remoteContentBody, err := ioutil.ReadAll(resp.Body)
 	log.Println("remoteContentBody:", remoteContentBody)
 
-	var quandlTicker QuandlTicker
 	err = json.Unmarshal(remoteContentBody, &quandlTicker)
 	if err != nil {
 		log.Println(err)
