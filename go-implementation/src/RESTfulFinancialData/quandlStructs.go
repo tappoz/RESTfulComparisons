@@ -41,17 +41,12 @@ type QuandlDailyStockData struct {
 
 func (qTicker *QuandlTicker) ToPresentationStruct() QuandlPresentation {
 
-	quandlDailyStockData := QuandlDailyStockData{}
+	log.Println("qTicker.Data length: ", len(qTicker.Data))
 
-	closingDate := qTicker.Data[0][0]
-	log.Println("closingDate:", closingDate)
-	quandlDailyStockData.Date = closingDate.(string)
-	closingPrice := qTicker.Data[0][1]
-	log.Println("closingPrice:", closingPrice)
-	quandlDailyStockData.ClosingPrice = closingPrice.(float64)
+	quandlDailyStockData := Map(&qTicker.Data)
 	log.Println("quandlDailyStockData:", quandlDailyStockData)
 
-	qPresentation := QuandlPresentation{TickerCode: qTicker.Code, Frequency: qTicker.Frequency, DailyStockData: []QuandlDailyStockData{quandlDailyStockData}}
+	qPresentation := QuandlPresentation{TickerCode: qTicker.Code, Frequency: qTicker.Frequency, DailyStockData: quandlDailyStockData}
 
 	log.Println("About to return the adapted:", qPresentation)
 	return qPresentation
@@ -71,4 +66,37 @@ func GetJsonSampleFromFile() QuandlTicker {
 	}
 
 	return quandlTicker
+}
+
+func ToDailyStockStruct(qData *[]interface{}) QuandlDailyStockData {
+
+	log.Println("qData:", qData)
+	quandlDailyStockData := QuandlDailyStockData{}
+
+	closingDate := (*qData)[0]
+	log.Println("closingDate:", closingDate)
+	quandlDailyStockData.Date = closingDate.(string)
+	closingPrice := (*qData)[1]
+	log.Println("closingPrice:", closingPrice)
+	quandlDailyStockData.ClosingPrice = closingPrice.(float64)
+
+	log.Println("quandlDailyStockData:", quandlDailyStockData)
+	return quandlDailyStockData
+
+}
+
+func Map(qData *[][]interface{}) []QuandlDailyStockData {
+
+	log.Println("qData length: ", len(*qData))
+
+	outputDailyStockData := make([]QuandlDailyStockData, len(*qData))
+
+	for dataIndex, dataValue := range *qData {
+		log.Printf("array value at [%d]=%v", dataIndex, dataValue)
+		outputDailyStockData[dataIndex] = ToDailyStockStruct(&dataValue)
+	}
+
+	log.Println("About to return a []QuandlDailyStockData of length:", len(outputDailyStockData))
+	return outputDailyStockData
+
 }
