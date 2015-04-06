@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
-	// "strings"
+	"net/http"
 )
 
 type QuandlTicker struct {
@@ -98,5 +98,26 @@ func Map(qData *[][]interface{}) []QuandlDailyStockData {
 
 	log.Println("About to return a []QuandlDailyStockData of length:", len(outputDailyStockData))
 	return outputDailyStockData
+
+}
+
+func GetRemoteJson() QuandlTicker {
+
+	resp, err := http.Get("https://www.quandl.com/api/v1/datasets/WIKI/AAPL.json?trim_start=2015-01-01&trim_end=2015-03-14&column=4")
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+	remoteContentBody, err := ioutil.ReadAll(resp.Body)
+	log.Println("remoteContentBody:", remoteContentBody)
+
+	var quandlTicker QuandlTicker
+	err = json.Unmarshal(remoteContentBody, &quandlTicker)
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println("About to return a remotely retrieved quandlTicker:", quandlTicker)
+	return quandlTicker
 
 }

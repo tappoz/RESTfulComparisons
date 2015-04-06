@@ -36,7 +36,8 @@ func GetTickerCode(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	quandlTicker := GetJsonSampleFromFile()
+	// quandlTicker := GetJsonSampleFromFile()
+	quandlTicker := GetRemoteJson()
 	log.Println("The JSON sample found is for the ticker:", quandlTicker.Code)
 
 	quandlPresObj := QuandlPresentation{}
