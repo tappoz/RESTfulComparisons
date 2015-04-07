@@ -10,5 +10,6 @@ then showing the outcome as a reply to the original request to the RESTful endpo
 
 * [Node.js RESTful implementation](./node-implementation/README.md)
 * [Java RESTful implementation](./java-implementation/README.md)
+* [Go (golang) RESTful implementation](./go-implementation/README.md)
 
 
