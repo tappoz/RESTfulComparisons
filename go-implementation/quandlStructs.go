@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"time"
 )
@@ -42,14 +41,14 @@ type QuandlDailyStockData struct {
 
 func (qTicker *QuandlTicker) ToPresentationStruct() QuandlPresentation {
 
-	log.Println("qTicker.Data length: ", len(qTicker.Data))
+	logger.Info("qTicker.Data length: ", len(qTicker.Data))
 
 	quandlDailyStockData := Map(&qTicker.Data)
-	log.Println("quandlDailyStockData:", quandlDailyStockData)
+	logger.Debug("quandlDailyStockData:", quandlDailyStockData)
 
 	qPresentation := QuandlPresentation{TickerCode: qTicker.Code, Frequency: qTicker.Frequency, DailyStockData: quandlDailyStockData}
 
-	log.Println("About to return the adapted:", qPresentation)
+	logger.Debug("About to return the adapted:", qPresentation)
 	return qPresentation
 }
 
@@ -57,13 +56,13 @@ func GetJsonSampleFromFile() QuandlTicker {
 
 	contentSample, err := ioutil.ReadFile("sampleQuandlTicker.json")
 	if err != nil {
-		log.Println(err)
+		logger.Error(err)
 	}
 
 	var quandlTicker QuandlTicker
 	err = json.Unmarshal(contentSample, &quandlTicker)
 	if err != nil {
-		log.Println(err)
+		logger.Error(err)
 	}
 
 	return quandlTicker
@@ -71,33 +70,33 @@ func GetJsonSampleFromFile() QuandlTicker {
 
 func ToDailyStockStruct(qData *[]interface{}) QuandlDailyStockData {
 
-	log.Println("qData:", qData)
+	logger.Debug("qData:", qData)
 	quandlDailyStockData := QuandlDailyStockData{}
 
 	closingDate := (*qData)[0]
-	log.Println("closingDate:", closingDate)
+	logger.Debug("closingDate:", closingDate)
 	quandlDailyStockData.Date = closingDate.(string)
 	closingPrice := (*qData)[1]
-	log.Println("closingPrice:", closingPrice)
+	logger.Debug("closingPrice:", closingPrice)
 	quandlDailyStockData.ClosingPrice = closingPrice.(float64)
 
-	log.Println("quandlDailyStockData:", quandlDailyStockData)
+	logger.Debug("quandlDailyStockData:", quandlDailyStockData)
 	return quandlDailyStockData
 
 }
 
 func Map(qData *[][]interface{}) []QuandlDailyStockData {
 
-	log.Println("qData length: ", len(*qData))
+	logger.Info("qData length: ", len(*qData))
 
 	outputDailyStockData := make([]QuandlDailyStockData, len(*qData))
 
 	for dataIndex, dataValue := range *qData {
-		log.Printf("array value at [%d]=%v", dataIndex, dataValue)
+		logger.Debug("array value at [%d]=%v", dataIndex, dataValue)
 		outputDailyStockData[dataIndex] = ToDailyStockStruct(&dataValue)
 	}
 
-	log.Println("About to return a []QuandlDailyStockData of length:", len(outputDailyStockData))
+	logger.Info("About to return a []QuandlDailyStockData of length:", len(outputDailyStockData))
 	return outputDailyStockData
 
 }
@@ -112,19 +111,19 @@ func GetRemoteJson() QuandlTicker {
 	var quandlTicker QuandlTicker
 	resp, err := client.Get("https://www.quandl.com/api/v1/datasets/WIKI/AAPL.json?trim_start=2015-01-01&trim_end=2015-03-14&column=4")
 	if err != nil {
-		log.Println("Issues in retrieving the remote JSON object")
+		logger.Error("Issues in retrieving the remote JSON object")
 		return quandlTicker
 	}
 	defer resp.Body.Close()
 	remoteContentBody, err := ioutil.ReadAll(resp.Body)
-	log.Println("remoteContentBody:", remoteContentBody)
+	logger.Debug("remoteContentBody:", remoteContentBody)
 
 	err = json.Unmarshal(remoteContentBody, &quandlTicker)
 	if err != nil {
-		log.Println(err)
+		logger.Error(err)
 	}
 
-	log.Println("About to return a remotely retrieved quandlTicker:", quandlTicker)
+	logger.Debug("About to return a remotely retrieved quandlTicker:", quandlTicker)
 	return quandlTicker
 
 }

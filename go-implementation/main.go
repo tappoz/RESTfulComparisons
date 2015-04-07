@@ -2,11 +2,18 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/codegangsta/negroni"
+	"github.com/Sirupsen/logrus"
 	"github.com/gorilla/mux"
-	"log"
 	"net/http"
 )
+
+var logger = logrus.New()
+
+func init() {
+	logger.Level = logrus.DebugLevel
+	// cfr.: https://github.com/Sirupsen/logrus/blob/master/text_formatter.go#L35
+	logger.Formatter = &logrus.TextFormatter{FullTimestamp: true}
+}
 
 func main() {
 
@@ -14,24 +21,27 @@ func main() {
 
 	router.HandleFunc("/ticker", GetTickerCode).Methods("GET")
 	router.HandleFunc("/ticker/{tickerCode}", GetTickerCode).Methods("GET")
+	http.Handle("/", router)
 
-	n := negroni.Classic()
-	n.UseHandler(router)
-	n.Run(":8080")
+	logger.Info("Just set up the routes")
+
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		logger.Fatal("http.ListenAndServe: ", err)
+	}
 }
 
 func GetTickerCode(w http.ResponseWriter, r *http.Request) {
 
 	pathParams := mux.Vars(r)
-	log.Println("Vars:", pathParams)
+	logger.Debug("Vars:", pathParams)
 
 	tickerCode := pathParams["tickerCode"]
 	if tickerCode == "" {
-		log.Println("The HTTP path parameter was not found!")
+		logger.Info("The HTTP path parameter was not found!")
 		tickerCode = r.URL.Query().Get("tickerCode")
-		log.Println("The HTTP query parameter tickerCode is:", tickerCode)
+		logger.Info("The HTTP query parameter tickerCode is:", tickerCode)
 	}
-	log.Println("Requested ticker:", tickerCode)
+	logger.Debug("Requested ticker:", tickerCode)
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -39,14 +49,14 @@ func GetTickerCode(w http.ResponseWriter, r *http.Request) {
 	var quandlTicker QuandlTicker
 	quandlTicker = GetRemoteJson()
 	if quandlTicker.Code == "" {
-		log.Println("The remote JSON retrieval was empty, using the local sample instead")
+		logger.Warn("The remote JSON retrieval was empty, using the local sample instead")
 		quandlTicker = GetJsonSampleFromFile()
 	}
-	log.Println("The JSON sample found is for the ticker:", quandlTicker.Code)
+	logger.Debug("The JSON sample found is for the ticker:", quandlTicker.Code)
 
 	quandlPresObj := QuandlPresentation{}
 	quandlPresObj = quandlTicker.ToPresentationStruct()
-	log.Println("quandlPresObj:", quandlPresObj)
+	logger.Debug("quandlPresObj:", quandlPresObj)
 
 	if err := json.NewEncoder(w).Encode(quandlPresObj); err != nil {
 		panic(err)
