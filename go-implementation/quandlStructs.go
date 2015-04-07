@@ -92,7 +92,7 @@ func Map(qData *[][]interface{}) []QuandlDailyStockData {
 	outputDailyStockData := make([]QuandlDailyStockData, len(*qData))
 
 	for dataIndex, dataValue := range *qData {
-		logger.Debug("array value at [%d]=%v", dataIndex, dataValue)
+		logger.Debugf("At index %d the array has value: %v", dataIndex, dataValue)
 		outputDailyStockData[dataIndex] = ToDailyStockStruct(&dataValue)
 	}
 
@@ -103,7 +103,7 @@ func Map(qData *[][]interface{}) []QuandlDailyStockData {
 
 func GetRemoteJson() QuandlTicker {
 
-	timeout := time.Duration(2 * time.Second)
+	timeout := time.Duration(6 * time.Second)
 	client := http.Client{
 		Timeout: timeout,
 	}
