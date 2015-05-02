@@ -26,7 +26,7 @@ var svg = d3.select("body").append("svg")
     .attr("transform", 
           "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("backendApiData.json", function(error, wholeData) {
+d3.json("../data/backendApiData.json", function(error, wholeData) {
 
 	var data = wholeData.dailyStockData;
 
