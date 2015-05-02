@@ -16,7 +16,7 @@ var BarChartRenderer = React.createClass({
     return (
       <div className="barChartRenderer">
         Hello, world! I am a BarChartRenderer managed by React! 
-        <tt>{formattedData}</tt>
+        <br><tt>{formattedData}</tt></br>
       </div>
     );
   }
