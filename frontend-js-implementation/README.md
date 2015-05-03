@@ -10,8 +10,26 @@ To be able to call the `browserify` command from everywhere in the command line:
 $ sudo npm install -g browserify
 ```
 
-To generate the javascript source code used in the HTML page:
-`$ browserify build/reactCode.js -o build/reactCode2.js`
+Then you need to install `gulp`, the task runner:
+```
+$ sudo npm install -g grunt-cli
+```
+
+Then inside the project folder run the `npm` command to install all the local Node.js dependencies:
+```
+$ npm install
+```
+
+To browserify the javascript code you need to run:
+```
+$ gulp default
+```
+Where `default` is a gupl task defined in the file `gulpfile.js` which:
+- cleans the `build` folder, 
+- generates the javascript file starting from all the modules and the JSX code, 
+- watches out for changes in the source code to build a new version in real time while developing.
+
+At this point you have the environment ready to run the application. 
 
 
 # Testing
@@ -24,7 +42,13 @@ Then checking on Chrome the URL: `http://localhost:8000/`.
 Otherwise you may have issues with forbidden cross origin requests due to the fact that you are trying to load some files from the file system and fetching some code from a remote website.
 
 
-# Build process
+# Context
+
+This project could be built in different ways, the main one is via the `gulp` command, but each single step has their own tools and background which I've tried to summarize in the following lines.
+
+To generate the javascript source code used in the HTML page:
+`$ browserify build/reactCode.js -o build/reactCode2.js`
+Be aware the the origin of the code to be "browserified" needs to be already free from JSX syntax (see below).
 
 This frontend sub-project is supposed to be managed by __React__, a javascript library for creating user interfaces maintaining a virtual DOM, following the MVC pattern, with the aim of supporting data that changes over time.
 
