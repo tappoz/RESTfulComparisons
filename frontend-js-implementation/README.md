@@ -3,6 +3,17 @@
 The project currently serves static data loaded from a JSON file, the focus for now is on the integration between the __React__ technology and the D3.js library to produce dynamic and interactive data visualizations.
 
 
+# Installation
+
+To be able to call the `browserify` command from everywhere in the command line:
+```
+$ sudo npm install -g browserify
+```
+
+To generate the javascript source code used in the HTML page:
+`$ browserify build/reactCode.js -o build/reactCode2.js`
+
+
 # Testing
 
 To test this webpage you may want to run a python web server from the same folder where all these files are contained:
