@@ -43,6 +43,7 @@ var BarChartRenderer = React.createClass({
     console.log(new Date().getMilliseconds(), "The dataToShow we found is:", this.state.dataToShow);
     // var formattedData = JSON.stringify(this.state.dataToShow, null, 2);
     if (this.state.dataToShow) {
+      console.log(new Date().getMilliseconds(), "Data to show!", this.state.dataToShow);
       return (
         <div className="barChartRenderer">
           <div id="chartToBeRendered"></div> 
@@ -50,6 +51,7 @@ var BarChartRenderer = React.createClass({
         </div>
       );
     } else {
+      console.log(new Date().getMilliseconds(), "No data to show! :(");
       return (
         <div className="barChartRenderer">
           <div id="chartToBeRendered"></div>
