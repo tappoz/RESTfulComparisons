@@ -1,5 +1,5 @@
-var React = require('react'); 
-var $ = require('jquery');
+var React = require('react');
+var dataHandler = require('../src/dataHandler');
 var barChart = require('../src/barChart');
 
 var StockPricesList = React.createClass({
@@ -29,9 +29,9 @@ var BarChartRenderer = React.createClass({
     return {started: now}; // this.state.started
   },
   componentWillMount: function() {
-    $.getJSON("data/backendApiData.json", function (dataFromFileSystem) {
-      console.log(new Date().getMilliseconds(), "This data has been loaded:", dataFromFileSystem);
-      this.setState({dataToShow: dataFromFileSystem});
+    dataHandler.fetchData(function(data) {
+      console.log(new Date().getMilliseconds(), "This data has been provided:", data);
+      this.setState({dataToShow: data});
       this.renderChart();
     }.bind(this));
   },
