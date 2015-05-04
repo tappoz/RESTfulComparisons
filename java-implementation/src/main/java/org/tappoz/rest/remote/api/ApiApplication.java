@@ -26,6 +26,8 @@ public class ApiApplication extends Application<ApiConfiguration>{
 
         final ApiResource apiResource = objectGraph.get(ApiResource.class);
         environment.jersey().register(apiResource);
+        final ApiConfigFilters apiConfigFilters = objectGraph.get(ApiConfigFilters.class);
+        environment.jersey().register(apiConfigFilters);
         log.info("Just registered all the resources");
     }
 }
