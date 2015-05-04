@@ -36,6 +36,6 @@ $ grunt server
 Using the application
 ---------------------
 
-To fetch the relevant data regarding a ticker perform an HTTP GET on `http://localhost:3000/tickers/:tickerCode` where e.g. `tickerCode` for Apple is `AAPL`.
+To fetch the relevant data regarding a ticker perform an HTTP GET on `http://localhost:8080/tickers/:tickerCode` where e.g. `tickerCode` for Apple is `AAPL`.
 
 You may want to use a _web browser plugin_ e.g. __postman__ for __Chrome__.
