@@ -23,57 +23,53 @@ var yAxis = d3.svg.axis()
 
 var barChart = {
 
-  getInstance: function (jsonFilePath, chartElement, callback) {
+  getInstance: function (dataToShow, chartElement, callback) {
 
     var svg = d3.select(chartElement).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-    .append("g")
+      .append("g")
       .attr("transform", 
             "translate(" + margin.left + "," + margin.top + ")");
 
-    // "../data/backendApiData.json"
-    d3.json(jsonFilePath, function(error, wholeData) {
+    var data = dataToShow.dailyStockData;
 
-      var data = wholeData.dailyStockData;
+    data.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.value = +d.closingPrice;
+    });
+    
+    x.domain(data.map(function(d) { return d.date; }));
+    y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
-      data.forEach(function(d) {
-          d.date = parseDate(d.date);
-          d.value = +d.closingPrice;
-      });
-      
-      x.domain(data.map(function(d) { return d.date; }));
-      y.domain([0, d3.max(data, function(d) { return d.value; })]);
-
-      svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
-          .call(xAxis)
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
         .selectAll("text")
-          .style("text-anchor", "end")
-          .attr("dx", "-.8em")
-          .attr("dy", "-.55em")
-          .attr("transform", "rotate(-90)" );
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", "-.55em")
+        .attr("transform", "rotate(-90)" );
 
-      svg.append("g")
-          .attr("class", "y axis")
-          .call(yAxis)
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
         .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end")
-          .text("Value ($)");
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Value ($)");
 
-      svg.selectAll("bar")
-          .data(data)
+    svg.selectAll("bar")
+        .data(data)
         .enter().append("rect")
-          .style("fill", "steelblue")
-          .attr("x", function(d) { return x(d.date); })
-          .attr("width", x.rangeBand())
-          .attr("y", function(d) { return y(d.value); })
-          .attr("height", function(d) { return height - y(d.value); });
-    })
+        .style("fill", "steelblue")
+        .attr("x", function(d) { return x(d.date); })
+        .attr("width", x.rangeBand())
+        .attr("y", function(d) { return y(d.value); })
+        .attr("height", function(d) { return height - y(d.value); });
   }
 }
 

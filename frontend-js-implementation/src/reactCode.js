@@ -11,12 +11,13 @@ var BarChartRenderer = React.createClass({
   componentWillMount: function() {
     $.getJSON("data/backendApiData.json", function (dataFromFileSystem) {
       console.log(new Date().getMilliseconds(), "This data has been loaded:", dataFromFileSystem);
-      this.setState({dataToShow: dataFromFileSystem}); // TODO make d3 reusing this object from the JSON one
+      this.setState({dataToShow: dataFromFileSystem});
       this.renderChart();
     }.bind(this));
   },
   renderChart: function() {
-    barChart.getInstance('data/backendApiData.json', '#chartToBeRendered');
+    console.log(new Date().getMilliseconds(), "About to show this data:", this.state.dataToShow);
+    barChart.getInstance(this.state.dataToShow, '#chartToBeRendered');
   },
   render: function() {
     console.log(new Date().getMilliseconds(), "The dataToShow we found is:", this.state.dataToShow);
