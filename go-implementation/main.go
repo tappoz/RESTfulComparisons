@@ -32,6 +32,9 @@ func main() {
 
 func GetTickerCode(w http.ResponseWriter, r *http.Request) {
 
+	// allow cross domain AJAX requests
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	pathParams := mux.Vars(r)
 	logger.Debug("Vars:", pathParams)
 
