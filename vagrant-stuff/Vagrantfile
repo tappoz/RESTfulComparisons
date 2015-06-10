@@ -1,0 +1,21 @@
+#
+# based on the work done by William at: https://github.com/William-Yeh/docker-enabled-vagrant
+#
+
+Vagrant.configure(2) do |config|
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "ubuntu/trusty64"
+
+  # avoid possible request "vagrant@127.0.0.1's password:" when "up" and "ssh"
+  config.ssh.password = "vagrant"
+
+  config.vm.provision :shell, :path => "provision-script.sh"
+
+  config.vm.define "vm-docker" do |foohost|
+  end
+  config.vm.provider :virtualbox do |vb|
+      vb.name = "vm-box-docker"
+  end
+
+end
