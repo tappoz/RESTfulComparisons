@@ -16,7 +16,6 @@ vagrant box remove --force $BOX_NAME
 vagrant halt
 vagrant destroy --force
 
-
 vagrant up
 vagrant package --output $BOX_FILE_NAME
 vagrant box add  --name $BOX_NAME $BOX_FILE_NAME

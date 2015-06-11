@@ -2,20 +2,20 @@
 #
 # based on the work done by William at: https://github.com/William-Yeh/docker-enabled-vagrant
 
-
-# disable the warning "Your environment specifies an invalid locale"
-#sudo touch /var/lib/cloud/instance/locale-check.skip
-
 # update packages
 sudo apt-get update
 sudo apt-get -y -q upgrade
 
-
 # install docker
-mkdir ~/tmp
-cd ~/tmp
+mkdir /home/vagrant/tmp
+cd /home/vagrant/tmp
 curl -sL https://get.docker.io/ubuntu/ > docker-installer.sh
 sudo sh docker-installer.sh
+
+# clone the git repository for this current project
+mkdir /home/vagrant/repo
+cd /home/vagrant/repo
+git clone https://github.com/tappoz/RESTfulComparisons.git
 
 # add 'vagrant' user to docker group
 sudo usermod -aG docker vagrant

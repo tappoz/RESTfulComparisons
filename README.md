@@ -17,7 +17,12 @@ The __backend__ service can be provided by 3 different applications:
 
 ## Implementations
 
-* [Node.js RESTful implementation](./node-implementation/README.md)
-* [Java RESTful implementation](./java-implementation/README.md)
-* [Go (golang) RESTful implementation](./go-implementation/README.md)
-* [Frontend implementation (React with D3.js)](./frontend-js-implementation/README.md)
+* [Node.js RESTful implementation](./node-implementation)
+* [Java RESTful implementation](./java-implementation)
+* [Go (golang) RESTful implementation](./go-implementation)
+* [Frontend implementation (React with D3.js)](./frontend-js-implementation)
+
+## Running environment
+
+A handy virtual machine containing _docker_ and this repository itself has been provided at this path: [vagrant-stuff](./vagrant-stuff).
+
