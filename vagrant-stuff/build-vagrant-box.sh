@@ -11,14 +11,12 @@ readonly BOX_FILE_NAME=vm-ubuntu-docker.box
 #  - http://docs.vagrantup.com/v2/boxes/base.html
 #
 
+rm -f $BOX_FILE_NAME
 vagrant box remove --force $BOX_NAME
 vagrant halt
 vagrant destroy --force
+
+
 vagrant up
 vagrant package --output $BOX_FILE_NAME
 vagrant box add  --name $BOX_NAME $BOX_FILE_NAME
-mv Vagrantfile renamedVagrantfile
-vagrant init $BOX_NAME
-vagrant up
-mv renamedVagrantfile Vagrantfile
-

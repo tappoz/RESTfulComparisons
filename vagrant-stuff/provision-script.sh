@@ -7,20 +7,19 @@
 #sudo touch /var/lib/cloud/instance/locale-check.skip
 
 # update packages
-#sudo apt-get update
-#sudo apt-get -y -q upgrade
+sudo apt-get update
+sudo apt-get -y -q upgrade
+
 
 # install docker
 mkdir ~/tmp
-#cd ~/tmp
-#curl -sL https://get.docker.io/ubuntu/ > docker-installer.sh
-#sudo su docker-installer.sh
+cd ~/tmp
+curl -sL https://get.docker.io/ubuntu/ > docker-installer.sh
+sudo sh docker-installer.sh
 
 # add 'vagrant' user to docker group
-#sudo usermod -aG docker vagrant
+sudo usermod -aG docker vagrant
 
 # zero out the free space to save space in the final image
-#sudo dd if=/dev/zero of=/EMPTY bs=1M
-#sudo rm -f /EMPTY
-
-
+sudo dd if=/dev/zero of=/EMPTY bs=1M
+sudo rm -f /EMPTY
