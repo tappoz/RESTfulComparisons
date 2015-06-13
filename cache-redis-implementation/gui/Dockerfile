@@ -5,14 +5,14 @@ RUN apt-get update && apt-get install -y \
    curl \
    tcl8.5
 
-RUN mkdir /opt
-WORKDIR /opt
+RUN mkdir /app
+WORKDIR /app
 
 RUN curl -L http://nodejs.org/dist/v0.12.2/node-v0.12.2.tar.gz -o node.tar.gz
 
 RUN tar xvzf node.tar.gz
 
-WORKDIR /opt/node-v0.12.2
+WORKDIR /app/node-v0.12.2
 RUN ./configure
 RUN make
 
