@@ -1,11 +1,11 @@
 FROM debian:wheezy
 
-RUN apt-get update
-RUN apt-get install -y build-essential
-RUN apt-get install -y python
-RUN apt-get install -y curl
+RUN apt-get update && apt-get install -y \ 
+   build-essential \
+   curl \
+   tcl8.5
 
-# RUN mkdir /opt
+RUN mkdir /opt
 WORKDIR /opt
 
 RUN curl -L http://nodejs.org/dist/v0.12.2/node-v0.12.2.tar.gz -o node.tar.gz
