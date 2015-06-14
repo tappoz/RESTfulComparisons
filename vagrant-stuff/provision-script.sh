@@ -7,15 +7,16 @@ sudo apt-get update
 sudo apt-get -y -q upgrade
 
 # install docker
-mkdir /home/vagrant/tmp
+mkdir -p /home/vagrant/tmp
 cd /home/vagrant/tmp
 curl -sL https://get.docker.io/ubuntu/ > docker-installer.sh
 sudo sh docker-installer.sh
 
 # clone the git repository for this current project
-mkdir /home/vagrant/repo
+mkdir -p /home/vagrant/repo
 cd /home/vagrant/repo
 git clone https://github.com/tappoz/RESTfulComparisons.git
+sudo chown -R vagrant:vagrant RESTfulComparisons/**/*
 
 # add 'vagrant' user to docker group
 sudo usermod -aG docker vagrant

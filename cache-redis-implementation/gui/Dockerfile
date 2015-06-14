@@ -3,6 +3,7 @@ FROM debian:wheezy
 RUN apt-get update && apt-get install -y \ 
    build-essential \
    curl \
+   python \
    tcl8.5
 
 RUN mkdir /app
@@ -15,9 +16,10 @@ RUN tar xvzf node.tar.gz
 WORKDIR /app/node-v0.12.2
 RUN ./configure
 RUN make
+RUN make install
 
-# npm install -g redis-commander
+RUN npm install -g redis-commander
 #  $ redis-commander
 
 EXPOSE 8080
-CMD ["/bin/bash"]
+CMD ["redis-commander"]
