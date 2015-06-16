@@ -21,5 +21,10 @@ RUN make install
 RUN npm install -g redis-commander
 #  $ redis-commander
 
+RUN apt-get install -y \
+    telnet
+
 EXPOSE 8080
-CMD ["redis-commander"]
+#CMD ["redis-commander"]
+#ENTRYPOINT ["redis-commander", "--redis-host", "127.0.0.1", "--redis-port", "9000"]
+ENTRYPOINT ["/bin/bash"]

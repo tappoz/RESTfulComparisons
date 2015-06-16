@@ -7,9 +7,9 @@ $ sudo service docker start
 
 # Images and containers
 
-$ sudo docker build -t redis_i .
+$ docker build -t redis_i .
 
-$ sudo docker run -d --name redis_c -i -t redis_i
+$ docker run -d -p 127.0.0.1:6379:9000 --name redis_c -i -t redis_i
 
 $ docker ps
 
