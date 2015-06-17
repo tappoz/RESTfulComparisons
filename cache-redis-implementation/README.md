@@ -1,18 +1,37 @@
 # Cache - Redis service
 
+# Docker stuff
+
+```
 FATA[0000] Get http:///var/run/docker.sock/v1.18/images/json: dial unix /var/run/docker.sock: no such file or directory. Are you trying to connect to a TLS-enabled daemon without TLS?
-
+```
+The previous message means you need to start docker as a daemon:
+```
 $ sudo service docker start
+```
 
+## Images and containers
 
-# Images and containers
-
+```
 $ docker build -t redis_i .
+$ docker run -d -p 127.0.0.1:9000:6379 --name redis_c -i -t redis_i
+$ docker exec -it redis_i bash
+```
 
-$ docker run -d -p 127.0.0.1:6379:9000 --name redis_c -i -t redis_i
+# Telnet connection
 
-$ docker ps
+```
+$ telnet localhost 9000
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
 
-$ docker exec -it 110c75037fdd bash
 
+ping
++PONG
+^]
 
+telnet> quit
+Connection closed.
+$
+```
