@@ -17,4 +17,5 @@ RUN make
 # RUN make test
 # RUN make install
 
+EXPOSE 6379
 ENTRYPOINT src/redis-server

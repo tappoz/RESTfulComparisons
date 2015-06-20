@@ -24,5 +24,8 @@ RUN npm install -g redis-commander
 RUN apt-get install -y \
     telnet
 
-ENTRYPOINT ["redis-commander", "--redis-host", "127.0.0.1", "--redis-port", "9000"]
-#ENTRYPOINT ["/bin/bash"]
+# $ redis-commander --redis-host $REDIS_PORT_6379_TCP_ADDR --redis-port $REDIS_PORT_6379_TCP_PORT
+#ENTRYPOINT ["redis-commander", "--redis-host", "127.0.0.1", "--redis-port", "9000"]
+EXPOSE 8080
+ENTRYPOINT ["/bin/bash"]
+

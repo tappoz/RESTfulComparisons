@@ -14,7 +14,7 @@ $ sudo service docker start
 
 ```
 $ docker build -t redis_i .
-$ docker run -d -p 127.0.0.1:9000:6379 --name redis_c -i -t redis_i
+$ docker run -d -p 127.0.0.1:6379:6379 --name redis_c -i -t redis_i
 $ docker exec -it redis_i bash
 ```
 
