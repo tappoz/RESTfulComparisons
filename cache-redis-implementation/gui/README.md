@@ -2,7 +2,7 @@
 
 ```
 $ docker build -t redis_gui_i .
-$ docker run -d -p 127.0.0.1:8080:8080 --name redis_gui_c --link redis_c:redis -i -t redis_gui_i # linking this container to redis_c
+$ docker run -d -p 127.0.0.1:8081:8081 --name redis_gui_c --link redis_c:redis -i -t redis_gui_i # linking this container to redis_c
 $ docker exec -it redis_gui_c bash
 ```
 
