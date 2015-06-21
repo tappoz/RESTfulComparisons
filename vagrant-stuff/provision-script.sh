@@ -16,7 +16,7 @@ sudo sh docker-installer.sh
 mkdir -p /home/vagrant/repo
 cd /home/vagrant/repo
 git clone https://github.com/tappoz/RESTfulComparisons.git
-sudo chown -R vagrant:vagrant RESTfulComparisons/**/*
+sudo chown -R vagrant:vagrant RESTfulComparisons
 
 # add 'vagrant' user to docker group
 sudo usermod -aG docker vagrant
