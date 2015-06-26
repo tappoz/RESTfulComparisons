@@ -2,8 +2,8 @@
 
 ```
 $ docker build -t redis_gui_i .
-$ docker run -d -p 127.0.0.1:8081:8081 --name redis_gui_c --link redis_c:redis -i -t redis_gui_i
-$ docker run -d -p 127.0.0.1:8081:8081 --name redis_gui_c --link redis_c:redis -i -t redis_gui_i ; docker logs -f redis_gui_c
+$ docker run -d -p 8081:8081 --name redis_gui_c --link redis_c:redis -i -t redis_gui_i
+$ docker run -d -p 8081:8081 --name redis_gui_c --link redis_c:redis -i -t redis_gui_i ; docker logs -f redis_gui_c
 $ docker exec -it redis_gui_c bash
 ```
 
@@ -17,3 +17,7 @@ REDIS_PORT_6379_TCP_PORT=6379
 REDIS_PORT_6379_TCP=tcp://172.17.0.59:6379
 REDIS_PORT=tcp://172.17.0.59:6379
 ```
+
+# Web access
+
+You should be able to access the web GUI at: `http://localhost:9090/` (cfr. the vagrant port mapping and the docker port mapping).

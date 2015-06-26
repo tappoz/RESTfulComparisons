@@ -26,6 +26,5 @@ RUN apt-get install -y \
     net-tools \
     telnet
 
-# $ redis-commander --redis-host $REDIS_PORT_6379_TCP_ADDR --redis-port $REDIS_PORT_6379_TCP_PORT
 EXPOSE 8081
-CMD redis-commander --redis-host $REDIS_PORT_6379_TCP_ADDR --redis-port $REDIS_PORT_6379_TCP_PORT --address 127.0.0.1
+CMD redis-commander --redis-host $REDIS_PORT_6379_TCP_ADDR --redis-port $REDIS_PORT_6379_TCP_PORT

@@ -18,11 +18,13 @@ $ vagrant ssh
 
 From the host computer while running the Vagrant guest box:
 ```
-$ nmap -sS -P0 192.168.42.42/32
+$ sudo nmap -sS -P0 192.168.42.42/32
+$ curl -v http://localhost:9090
+$ telnet localhost 9091
 ```
 From within the Vagrant box:
 ```
-$ curl http://192.168.42.42:8081
+$ curl http://192.168.42.42:9090
 $ iptables --list
 $ netstat -nap
 ```

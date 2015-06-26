@@ -14,15 +14,15 @@ $ sudo service docker start
 
 ```
 $ docker build -t redis_i .
-$ docker run -d -p 127.0.0.1:6379:6379 --name redis_c -i -t redis_i
-$ docker run -d -p 127.0.0.1:6379:6379 --name redis_c -i -t redis_i ; docker logs -f redis_c
+$ docker run -d -p 6379:6379 --name redis_c -i -t redis_i
+$ docker run -d -p 6379:6379 --name redis_c -i -t redis_i ; docker logs -f redis_c
 $ docker exec -it redis_i bash
 ```
 
 # Telnet connection
 
 ```
-$ telnet localhost 9000
+$ telnet localhost 6379
 Trying 127.0.0.1...
 Connected to localhost.
 Escape character is '^]'.
