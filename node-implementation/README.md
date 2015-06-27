@@ -33,9 +33,22 @@ To run the application you need to execute the `server` task:
 ```
 $ grunt server
 ```
+
 Using the application
 ---------------------
 
 To fetch the relevant data regarding a ticker perform an HTTP GET on `http://localhost:8080/tickers/:tickerCode` where e.g. `tickerCode` for Apple is `AAPL`.
 
 You may want to use a _web browser plugin_ e.g. __postman__ for __Chrome__.
+
+
+Containers
+----------
+
+```
+$ docker build -t backend_node_i .
+$ docker run -d -p 8082:8080 --name backend_node_c -i -t backend_node_i ; docker logs -f backend_node_c
+```
+
+If running the application inside a docker container, then you could perform an HTTP GET at `http://localhost:8082/ticker/AAPL` to check that everything is working fine.
+
