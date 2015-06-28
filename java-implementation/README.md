@@ -47,3 +47,11 @@ In fact it is currently used only at runtime with the `java -jar` command.
 ## Metrics
 
 `http://localhost:8081/`
+
+# Containers
+
+```
+$ docker build -t java_i .
+$ docker run -d -p 9093:8080 -p 9094:8081 --name java_c -i -t java_i ; docker logs -f java_c
+$ docker exec -it java_c bash
+```
