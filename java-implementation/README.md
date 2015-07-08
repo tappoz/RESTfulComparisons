@@ -37,6 +37,13 @@ $ java -jar build/libs/java-implementation-1.0.jar server src/main/resources/api
 The YAML configuration file is currently inside the `resources` folder as per Maven requirements, but that's not mandatory.
 In fact it is currently used only at runtime with the `java -jar` command.
 
+Inside the docker container this is the command:
+```
+java -jar build/libs/app-1.0.jar server src/main/resources/apiConfigurations.yml
+```
+
+The reason why the JAR name is different is because of the folder where the source code is contained in (this is because of how Dropwizard works by default).
+
 
 # Endpoints
 
@@ -52,6 +59,7 @@ In fact it is currently used only at runtime with the `java -jar` command.
 
 ```
 $ docker build -t java_i .
-$ docker run -d -p 9093:8080 -p 9094:8081 --name java_c -i -t java_i ; docker logs -f java_c
+$ docker stop java_c ; docker rm java_c
+$ docker run -d -p 8083:8080 -p 8084:8081 --name java_c -i -t java_i ; docker logs -f java_c
 $ docker exec -it java_c bash
 ```
