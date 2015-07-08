@@ -16,7 +16,7 @@ $ sudo service docker start
 $ docker build -t redis_i .
 $ docker run -d -p 6379:6379 --name redis_c -i -t redis_i
 $ docker run -d -p 6379:6379 --name redis_c -i -t redis_i ; docker logs -f redis_c
-$ docker exec -it redis_i bash
+$ docker exec -it redis_c bash
 ```
 
 # Telnet connection
