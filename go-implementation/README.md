@@ -25,7 +25,7 @@ You need to perform some HTTP GET requests (you may want to use `postman` on the
 ```
 $ docker stop golang_c ; docker rm golang_c
 $ docker build -t golang_i .
-$ docker run -d --name golang_c -i -t golang_i ; docker logs -f golang_c
+$ docker run -d -p 8085:8080 --name golang_c -i -t golang_i ; docker logs -f golang_c
 $ docker exec -it golang_c bash
 ```
 

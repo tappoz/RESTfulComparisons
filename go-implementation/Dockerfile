@@ -21,21 +21,20 @@ RUN cd /usr/src/go/src && ./make.bash --no-clean 2>&1
 
 ENV PATH /usr/src/go/bin:$PATH
 
-# RUN mkdir -p /go/src /go/bin && chmod -R 777 /go
-# ENV GOPATH /go
-# ENV PATH /go/bin:$PATH
-# WORKDIR /go
+RUN mkdir -p /go/src/app/
+RUN mkdir -p /go/bin/
+RUN chmod -R 777 /go 
+ENV GOPATH /go
+ENV PATH /go/bin:$PATH
 
-RUN mkdir -p /app
-WORKDIR /app
-# ENV GOPATH /app
-
-ADD main.go /app/
-ADD quandlStructs.go /app/
-ADD sampleQuandlTicker.json /app/
+ADD main.go /go/src/app/
+ADD quandlStructs.go /go/src/app/
+ADD sampleQuandlTicker.json /go/src/app/
 
 RUN git config --global http.sslVerify false
+WORKDIR /go/src/app
 RUN go get
 RUN go build
 
-ENTRYPOINT /bin/bash
+EXPOSE 8080
+ENTRYPOINT /go/bin/app
