@@ -32,6 +32,17 @@ Where `default` is a gupl task defined in the file `gulpfile.js` which:
 At this point you have the environment ready to run the application. 
 
 
+# Docker
+
+```
+$ docker build -t frontend_i .
+$ docker stop frontend_c ; docker rm frontend_c
+$ docker run -d -p 8090:8000 --name frontend_c -i -t frontend_i ; docker logs -f frontend_c
+$ docker exec -it frontend_c bash
+```
+NOTE: this frontend container needs to be linked to a backend container, i.e. there must be a link between HTTP ports. Right now the `docker run` command does not specify any HTTP port link with a backend container hence the frontend is not really useful...
+
+
 # Testing
 
 To test this webpage you may want to run a python web server from the same folder where all these files are contained:
