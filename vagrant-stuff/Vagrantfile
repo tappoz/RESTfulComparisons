@@ -18,4 +18,15 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "192.168.42.42"
   config.vm.network :forwarded_port, guest: 8081, host: 9090
   config.vm.network :forwarded_port, guest: 6379, host: 9091 # to reach redis from outside: `telnet localhost 9091`
+
+  # Disabling the current folder from being shared inside the VM
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  # Sharing selected folders with the VM
+  config.vm.synced_folder "../cache-redis-implementation", "/home/vagrant/components/cache-redis-implementation/"
+  config.vm.synced_folder "../frontend-js-implementation", "/home/vagrant/components/frontend-js-implementation/"
+  config.vm.synced_folder "../go-implementation", "/home/vagrant/components/go-implementation/"
+  config.vm.synced_folder "../java-implementation", "/home/vagrant/components/java-implementation/"
+  config.vm.synced_folder "../node-implementation", "/home/vagrant/components/node-implementation/"
+
 end
