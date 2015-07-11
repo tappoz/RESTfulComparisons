@@ -7,13 +7,17 @@ then showing the outcome as a reply to the original request to the RESTful endpo
 
 # Architecture
 
+All the entities run on their dedicated __docker container__.
+
 The __backend__ service can be provided by 3 different applications:
 
  - The __Node.js__  and __Express.js__ application using the __request__ module to handle the HTTP protocol and __winston__ as the logging framwork, __grunt__ as the task runner;
  - The __Java__ application using __Dropwizard__ as the MVC implementation and __Dagger__ for dependency injection along with __Gradle__ as the building tool;
  - The __go (golang)__ application using __logrus__ as the logging framework and __gorilla__ as a set of utilities for the HTTP level.
 
- The frontend uses __React (React.js)__ and the __D3.js__ data visualization library.
+The frontend uses __React (React.js)__ and the __D3.js__ data visualization library.
+
+There is also a redis cache with a GUI, but they are not yet integrated with the orchestration.
 
 ## Implementations
 
@@ -24,5 +28,5 @@ The __backend__ service can be provided by 3 different applications:
 
 ## Running environment
 
-A handy virtual machine containing _docker_ and this repository itself has been provided at this path: [vagrant-stuff](./vagrant-stuff).
+A handy virtual machine containing _docker_ and the code from the various parts of the architecture has been provided at this path: [vagrant-stuff](./vagrant-stuff).
 
