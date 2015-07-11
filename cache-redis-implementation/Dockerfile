@@ -1,9 +1,12 @@
-FROM debian:wheezy
+FROM debian:jessie
 
-RUN apt-get update && apt-get install -y \ 
-   build-essential \
-   curl \
-   tcl8.5
+RUN apt-get update 
+RUN apt-get install -y \ 
+	   build-essential \
+       curl \
+       tcl8.5
+
+RUN echo "alias ll='ls -laFh'" >> $HOME/.bashrc
 
 RUN mkdir /app
 WORKDIR /app

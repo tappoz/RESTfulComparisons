@@ -1,13 +1,14 @@
 FROM debian:jessie
 
-RUN apt-get update && apt-get install -y \
-    curl \
-    gcc \
-    git \
-    libc6-dev \
-    make \
-    --no-install-recommends && \ 
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update 
+RUN apt-get install -y \
+       curl \
+       gcc \
+       git \
+       libc6-dev \
+       make \
+       --no-install-recommends && \ 
+       rm -rf /var/lib/apt/lists/*
 
 RUN echo "alias ll='ls -laFh'" >> $HOME/.bashrc
 

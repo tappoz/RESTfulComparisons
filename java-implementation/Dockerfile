@@ -6,8 +6,8 @@ RUN echo "\ndeb http://http.debian.net/debian jessie-backports main" >> /etc/apt
 RUN apt-get update
 
 RUN apt-get install -y \
-  openjdk-8-jdk \
-  curl
+       openjdk-8-jdk \
+       curl
 
 RUN echo "alias ll='ls -laFh'" >> $HOME/.bashrc
 
