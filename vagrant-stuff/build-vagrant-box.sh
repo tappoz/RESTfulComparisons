@@ -1,9 +1,11 @@
 #!/bin/bash
 #
 # based on the work done by William at: https://github.com/William-Yeh/docker-enabled-vagrant/
+# 
+# $ vagrant init debian/jessie64; vagrant up --provider virtualbox
 
-readonly BOX_NAME=vm-ubuntu-docker
-readonly BOX_FILE_NAME=vm-ubuntu-docker.box
+readonly BOX_NAME=vm-debian-docker
+readonly BOX_FILE_NAME=vm-debian-docker.box
 
 #
 # cfr.: 

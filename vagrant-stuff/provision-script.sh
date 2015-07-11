@@ -12,6 +12,9 @@ cd /home/vagrant/tmp
 curl -sL https://get.docker.io/ubuntu/ > docker-installer.sh
 sudo sh docker-installer.sh
 
+# running docker as a daemon
+sudo service docker start
+
 # clone the git repository for this current project
 # (currently commented out as we can use vagrant synced folders)
 # mkdir -p /home/vagrant/repo

@@ -1,18 +1,19 @@
 #
 # based on the work done by William at: https://github.com/William-Yeh/docker-enabled-vagrant
 #
+# $ vagrant init debian/jessie64; vagrant up --provider virtualbox
 
 Vagrant.configure(2) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "debian/jessie64"
 
   # avoid possible request "vagrant@127.0.0.1's password:" when "up" and "ssh"
   config.ssh.password = "vagrant"
 
   config.vm.provision :shell, :path => "provision-script.sh"
 
-  config.vm.define "vm-ubuntu-docker"
+  config.vm.define "vm-debian-docker"
 
   # IP address of the VM accessible from the computer host running it
   config.vm.network "private_network", ip: "192.168.42.42"
