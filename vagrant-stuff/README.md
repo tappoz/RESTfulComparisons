@@ -13,6 +13,11 @@ To enter the running virtual machine run the command:
 ```
 $ vagrant ssh
 ```
+To reload the provision script (`provision-script.sh`) run the command:
+```
+$ vagrant reload --provision
+```
+
 
 # Troubleshooting
 
