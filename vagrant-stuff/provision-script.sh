@@ -42,7 +42,8 @@ KUBERNETES_TAR_FILE=$KUBERNETES_LABEL.tar.gz
 # echo "KUBERNETES_VER=1.0.1" >> ~/.bashrc
 curl -sL https://github.com/GoogleCloudPlatform/kubernetes/releases/download/v$KUBERNETES_VER/$KUBERNETES_TAR_FILE -o $KUBERNETES_TAR_FILE
 tar xzvf $KUBERNETES_TAR_FILE
-# TODO: $KUBERNETES_LABEL/hack/local-up-cluster.sh
+
+# ./kubernetes/platforms/linux/amd64/kubetcl
 
 # make the 'vagrant' user the owner of the downloaded stuff
 chown -R vagrant:vagrant /home/vagrant/tmp
