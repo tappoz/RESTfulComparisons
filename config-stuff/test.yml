@@ -1,0 +1,7 @@
+# frontend component configuration
+frontend_base:
+  build: ../frontend-js-implementation/
+  ports:
+    - "8090:8000"
+  labels:
+    - "frontend"

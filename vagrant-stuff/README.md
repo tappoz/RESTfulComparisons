@@ -13,6 +13,14 @@ To enter the running virtual machine run the command:
 ```
 $ vagrant ssh
 ```
+To reload the `Vagrant` file along with the provision bash script run the command:
+```
+$ vagrant reload --provision
+```
+You could also run only the shell provision (cfr. `:shell` inside the `Vagrantfile`) running:
+```
+$ vagrant reload --provision-with shell
+```
 
 # Troubleshooting
 
@@ -29,3 +37,7 @@ $ iptables --list
 $ netstat -nap
 ```
 
+If the docker service does not start, then from within the running virtual machine:
+```
+$ sudo service docker start
+```

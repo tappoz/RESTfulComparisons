@@ -1,0 +1,51 @@
+# frontend component configuration
+frontend_base:
+  build: ../frontend-js-implementation
+  ports:
+    - "8090:8000"
+  labels:
+    - "frontend"
+
+# backend node.js implementation
+backend_node_base:
+  build: ../node-implementation
+  ports:
+    - "8082:8080"
+  labels:
+    - "backendNode"
+
+# backend java implementation
+backend_java_base:
+  build: ../java-implementation
+  ports:
+    - "8083:8080"
+    - "8084:8081"
+  labels:
+    - "backendJava"
+
+# backend go implementation
+backend_go_base:
+  build: ../go-implementation
+  ports:
+    - "8085:8080"
+  labels:
+    - "backendGo"
+
+# cache redis
+cache_redis_base:
+  build: ../cache-redis-implementation
+  ports:
+    - "6379:6379"
+  labels:
+    - "cacheRedis"
+
+# cache redis gui
+cache_redis_gui_base:
+  build: ../cache-redis-implementation/gui
+  ports:
+    - "8081:8081"
+  labels:
+    - "cacheRedisGui"
+  links:
+    - cache_redis_base:redis
+
